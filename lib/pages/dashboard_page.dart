@@ -1,13 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'coffee_detail_page.dart';
+import 'profile_page.dart';
 import '../widgets/coffee_card.dart';
 
 /// widget dashboard page sebagai halaman utama aplikasi
-class DashboardPage extends StatelessWidget {
+class DashboardPage extends StatefulWidget {
   /// username yang diterima dari login page
   final String username;
   DashboardPage({super.key, required this.username});
+
+  @override
+  _DashboardPageState createState() => _DashboardPageState();
+}
+
+class _DashboardPageState extends State<DashboardPage> {
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   /// list data menu minuman dengan detail informasi
   /// setiap item berisi: nama, deskripsi, harga, gambar, dan kategori
@@ -91,27 +105,17 @@ class DashboardPage extends StatelessWidget {
     // filter menu berdasarkan kategori 'non-coffee'
     final nonCoffeeItems = coffeeMenu.where((item) => item['category'] == 'non-coffee').toList();
 
-    // AppBar dengan judul dan tombol logout
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Coffee Menu"),
-        backgroundColor: Colors.brown,
-        actions: [
-          // tombol logout untuk kembali ke halaman login
-          IconButton(
-            icon: Icon(Icons.logout),
-            onPressed: () => Navigator.pop(context),
-          )
-        ],
-      ),
-      body: Padding(
+    // List of widgets for IndexedStack
+    List<Widget> _widgetOptions = <Widget>[
+      // Home tab
+      Padding(
         padding: const EdgeInsets.all(12.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // greeting text dengan username yang dipersonalisasi
             Text(
-              "Hi, $username 👋, hari ini mau pesen apa nih? 😄",
+              "Hi, ${widget.username} 👋, hari ini mau pesen apa nih? 😄",
               style: GoogleFonts.poppins(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -151,9 +155,9 @@ class DashboardPage extends StatelessWidget {
                       },
                     );
                   }),
-                  
+
                   SizedBox(height: 20),
-                  
+
                   // Section Non-Coffee
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 12.0),
@@ -187,6 +191,43 @@ class DashboardPage extends StatelessWidget {
             ),
           ],
         ),
+      ),
+      // Profile tab
+      ProfilePage(username: widget.username),
+    ];
+
+    // AppBar dengan judul dan tombol logout
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Coffee Menu"),
+        backgroundColor: Colors.brown,
+        actions: [
+          // tombol logout untuk kembali ke halaman login
+          IconButton(
+            icon: Icon(Icons.logout),
+            onPressed: () => Navigator.pop(context),
+          )
+        ],
+      ),
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: _widgetOptions,
+      ),
+      // bottom navigation untuk menunjukkan halaman dashboard dan profile
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'About',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.brown,
+        onTap: _onItemTapped,
       ),
     );
   }
