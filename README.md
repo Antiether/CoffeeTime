@@ -1,16 +1,13 @@
 # coffeetime
 
-A new Flutter project.
+A Simple Coffee Menus App Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This project is about list of Coffee Menus, a Flutter Application.
 
-A few resources to get you started if this is your first Flutter project:
+Created by : Faiz Ahmad Nadhif
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Student Number : 2357051012
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+This app is just an interface of Coffee Menus App, inspired by app interface of branded coffee like Tomoro Coffee app
