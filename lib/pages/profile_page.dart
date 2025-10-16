@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+/// Widget ProfilePage untuk menampilkan profil
+/// Halaman ini menampilkan data user dan data author
 class ProfilePage extends StatelessWidget {
   final String username;
   const ProfilePage({super.key, required this.username});
@@ -11,6 +13,7 @@ class ProfilePage extends StatelessWidget {
       length: 2,
       child: Column(
         children: [
+          // tab pemisah antara User dan Author
           TabBar(
             tabs: [
               Tab(text: "User Profile"),
@@ -20,7 +23,7 @@ class ProfilePage extends StatelessWidget {
           Expanded(
             child: TabBarView(
               children: [
-                // User Info Tab
+                // User Profile Tab
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
